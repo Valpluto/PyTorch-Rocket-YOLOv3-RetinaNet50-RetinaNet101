@@ -63,7 +63,7 @@ for img in all_img:
 	# print(len(bboxes_out), 'different objects were detected:')
 	# print(*bboxes_out, sep='\n')
 
-	retiananet_cat.append(pd.read_json(bboxes_out))
+	retiananet_cat.append(bboxes_out)
 
 	# #Display the output over the image
 	# img_out = model.postprocess(out, img, visualize=True)
@@ -100,7 +100,7 @@ for img in all_img:
 
 
 
-	yolov3_cat.append(pd.read_json(bboxes_out))
+	yolov3_cat.append(bboxes_out)
 
 	# #Display the output over the image
 	# img_out = model.postprocess(out, img, visualize=True)
