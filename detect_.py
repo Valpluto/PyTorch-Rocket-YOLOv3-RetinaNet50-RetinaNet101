@@ -7,13 +7,13 @@ import pandas as pd
 from timeit import default_timer as timer
 
 ap = argparse.ArgumentParser()
-ap.add_argument('-i', '--image', required=True,
+ap.add_argument('-i', '--image', required=False,
                 help = 'number of images do you need')
 args = ap.parse_args()
 
 
 
-input_path = "images/train/train2014"
+input_path = "images/train/val2017"
 all_img = os.listdir(input_path)
 retiananet_cat = []
 yolov3_cat=[]
@@ -23,10 +23,10 @@ numberoftime = 0
 csv_file_name = "output" 
 
 for img in all_img:
-	print("\n number of image - " + str(numberoftime) + "\n")
+	#print("\n number of image - " + str(numberoftime) + "\n")
 
-	if(numberoftime >= int(args.image)):
-		break
+	if(args.image is not None and  numberoftime >= int(args.image)):
+			break
 
 	image_path = input_path + "/" + img    
 
@@ -112,6 +112,8 @@ for img in all_img:
 	#if(numberoftime%2 ==0):
 	df = pd.DataFrame(list(zip(all_img, retiananet_cat, retinanet_time, yolov3_cat, yolov3_time)), columns =['Image Name', 'retiananet_detected','r_time' ,'yolo_dected', 'y_time'])
 	df.to_csv((csv_file_name + str(numberoftime) + '.csv'), sep=',')
+
+	print("\n image number - {} \n".format(numberoftime))
 
 
 df = pd.DataFrame(list(zip(all_img, retiananet_cat, retinanet_time,  yolov3_cat, yolov3_time)), columns =['Image Name', 'retiananet_detected','r_time' ,'yolo_dected', 'y_time'])
